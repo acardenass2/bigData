@@ -1,0 +1,141 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+## R Basico
+
+
+### Lógica de comandos en R 
+
+$$comando(arguemntos1, arguemnto 2, \ldots)$$
+En el fondo un comando es ua función, y una función entran muchas cosas
+$$ f(x, \ldots)=y \ldots$$
+Notas sobre los comandos:
+  - No se pueden resumir 
+  - Es sensible a reconocer mayúsculas y minisculas, se debe escribir de la forma que fue definido. Si se escribió en mayusculas se debe escribir asi.
+  - Algunos arguementos son obligatorios y otros opcionales.
+  - Hay comandos que no requieren argumentos.
+Se introduce un chunks
+  -Cada comando nomralmente tiene su ayuda (help), este se accede con el simbolo ? antes del comando
+
+```{r}
+ls() #Listar los objetos en memoria, mostrar mas los resultados mejor se peude cambiar las salida de los chunks en la consola, para configuar ir al engranaje.
+rm() #Borrar objetos de la memoria
+rm(ls()) # Limpiar objetos de la memoria, si sale error es porque 
+?rm
+rm(list=ls())
+# Comandos relacionados a funciones matematicas
+exp(x=10) #o
+exp(10)
+?exp
+```
+
+### Formatos
+- Texto, cadena, string, caracter.
+- Números: enteros, decimales.
+- Fechas.
+- Lógicos.
+- Factor (Números códificados con etiquetas).
+- Especiales: Nan( valor perdido) y Null (valor nulo).
+
+```{r}
+#Para mucho texto es mejor trabajar con una sola comilla
+"Hola"
+1
+Sys.Date()
+#valores lógicos
+T 
+F
+1>10
+NA
+NULL
+
+```
+
+### Asignación (crear objetos)
+
+```{r}
+x1<- "Hola"
+x2<- 2
+Sys.Date()-> x3
+x4<<-T
+# Para saber que es
+class (x1)
+class (x2)
+class (x3)
+class (x4)
+
+typeof(x1)
+typeof(x2)
+typeof(x3)
+typeof(x4)
+
+str(x1); str(x2); str(x3); str(x4)
+```
+
+### Estructuras  
+  + Scalar
+  + Vectores
+  + Matrices
+  + Arrays
+  
+```{r}
+#scalar solo tiene un elemento
+x1<- 2
+#vector tiene que tener elementos de la misma estructura
+v1<- c(1,2,3) #vector columna px1
+v1
+class(v1)
+typeof(v1)
+str(v1)
+#un vector que contiene 100 numeros
+v2<-1:100
+sum(v2)
+seq(0,100,3)
+rep(1,10)
+rep(c(1,3),7)
+#Numeros aleatorios de una distr. uniforme
+runif(100,0,10)
+rnorm(1000)
+rnorm(1000,50,2)
+
+v2>500
+#modulos
+v2%%2
+#los que son cero son multplos de 5
+v2%%5
+
+# Matrices
+matrix(1:20,4,5, byrow=T)
+matrix(1:10, byrow=T, nrow = 4, ncol=5)
+# Array
+a1<- array(1:250, c(5,5,10))
+a1
+```
+
+### Heterogéneos
+
+```{r}
+bd<- data.frame(nombre=c("juan","Maria","Jesus"), edad=c(15,20,18), sexo=c(1,2,1))
+bd
+#Indexacion. Como accedo a la informacion dentro de los objetos
+#Ejemplo acceso a la primera comluma
+bd[,1]
+#Acceso a la variable que necesitemos
+bd$nombre
+#Poner entiquetas con factor
+factor(bd$sexo,c(1,2),c("Hombre", "Mujer"))
+#Asignar a la base de datos
+bd$sexo2<- factor(bd$sexo,c(1,2),c("Hombre", "Mujer"))
+bd
+#listas
+bdl<- list()
+bdl[[1]]<- bd
+bdl[[2]]<- bd
+bdl[[3]]<- v1
+bdl[[4]]<- v2
+bdl[[5]]<- "Hola"
+#En la posicion 6 se guardara otra lista
+bdl[[6]]<-bdl
+```

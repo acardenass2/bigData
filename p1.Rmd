@@ -1,0 +1,27 @@
+---
+title: "Universidad Mayor de San Andrés"
+subtitle: " Practica #1"
+author: "Nombre: Alejandro Cardenas Soria"
+date: '2023-02-14'
+bibliography: ref.bib
+nocite: "@*"
+output: 
+  word_document:
+    toc: true
+
+---
+
+---
+
+# Objetivo
+
+* Conocer todas las propiedades de derivadas e integrales.
+
+---
+
+---
+
+# Formulas
+
+$$\lim x^2 \frac{1}{e^x} dx=\alpha$$
+Se sabe que $ A $ a pesar de todo $ \in $
