@@ -138,4 +138,81 @@ bdl[[4]]<- v2
 bdl[[5]]<- "Hola"
 #En la posicion 6 se guardara otra lista
 bdl[[6]]<-bdl
+?rep()
+?runif()
+?distributions
+dunif
+
+```
+
+```{r}
+################Clase 3#######################
+n<-10000
+factor(runif(n)>=0.03, c(T,F), c("U","R"))
+set.seed(245) #para tener la misma forma
+bd2<- data.frame( edad=round(rnorm(n,27,5),0),
+                  ingreso= round(runif(n,0,20000),0),
+                  sexo=sample(c("H","M"),n, replace=T, prob =c(0.5,0.5)),
+                  area=factor(runif(n)>=0.03, c(T,F), c("U","R"))
+                  )
+bd2
+
+#Operaciones estadisticas
+
+t1<-table(bd2$sexo) #Exclusivo para sacar tablas de fecuencias (simple, doble contingencia, ...), se usa paar variables cualitativas
+t2<-table(bd2$sexo, bd2$area)
+#Extrae la proporcion de esta tabla
+prop.table(t1)
+t3<-prop.table(t2) #total celdas
+prop.table(t2,1) # me saca el porcetaje global, para sacar por filas
+addmargins(t3) #Sumatoria en forma de tabla
+prop.table(table(bd2$edad>30))*100#cuantas personas de la base de datos tendran mas de 30 años
+
+### Medidas de Tendencia Central
+summary(bd2$edad) #resumen
+summary(bd2$ingreso)
+mean(bd2$edad)
+median(bd2$edad)
+# ** es elevar al cuadrado, n o lenght(x)
+mc<- sqrt(sum((bd2$edad)^2)/n)
+mc
+#ahora nos crea,os una funcion
+mcua<- function(x){
+   y<-sqrt(sum((bd2$edad)^2)/n)
+   return(y)
+}
+mcua(bd2$edad)
+#Media armonica
+ma<-0
+sum<-0
+medarm<- function(x){
+  for(i in 1:n){
+  a<- 1/(x[i])
+  sum<-sum+a}
+  return(sum)
+}
+n/medarm(bd2$edad)
+####Actuvidad 2 base de datos que retorno un reporte estadistico para cada variable, reglas si es cuanti. mean. median, mean cuadra, y si es cuali, tabla de frec
+#loops y condiciones
+actividad2<- function(x){
+  for (i in names(bd2)) {
+  if(class(bd2[[i]])=="numeric"){
+    print(mean(bd2[[i]]), mcua(bd2[[i]]))
+  }
+  else{
+    print(table(bd2[[i]]))
+  }
+  }
+}  
+actividad2(bd2)
+#alternativa
+for (i in names(bd2)) {
+  if(is.numeric(bd2[[i]])){
+    print(mean(bd2[[i]]))
+  }
+  else{
+    print(table(bd2[[i]]))
+  }
+}
+
 ```
