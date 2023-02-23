@@ -197,14 +197,25 @@ n/medarm(bd2$edad)
 actividad2<- function(x){
   for (i in names(bd2)) {
   if(class(bd2[[i]])=="numeric"){
-    print(mean(bd2[[i]]), mcua(bd2[[i]]))
+    x1<-mean(bd2[[i]])
+    print(paste("La media de la variable cuantitativa",i, "es:",x1))
   }
   else{
-    print(table(bd2[[i]]))
+    print(paste("La tabla de frecuencias de las variable cuaiitativa es:",table(bd2[[i]])))
   }
   }
 }  
 actividad2(bd2)
+#Alternativa para el if
+for (i in names(bd2)) {
+  if(class(bd2[[i]])=="numeric"){
+    print(mean(bd2[[i]]))
+  }
+  else{
+    print(table(bd2[[i]]))
+  }
+}
+
 #alternativa
 for (i in names(bd2)) {
   if(is.numeric(bd2[[i]])){
@@ -214,5 +225,69 @@ for (i in names(bd2)) {
     print(table(bd2[[i]]))
   }
 }
+#variabilidad
+var(bd2$edad)
+sd(bd2$edad)
+range(bd2$edad)
+min(bd2$edad)
+max(bd2$edad)
+#forma
+hist(bd2$edad)
+plot(density(bd2$edad))
 
+plot(density((rnorm(n))), ylim=c(0,0.8))
+points(density(rnorm(n,sd=0.5)), col="red", type="l", add=T)
+
+boxplot(bd2$ingreso)
+quantile(bd2$ingreso, c(0.1,0.9))
+```
+
+
+```{r}
+#CLASE 23-FEB-2023
+#Usando R realizar una demostracíon (Simulación) del Teorema Central Del Limite
+set.seed(10)
+data <- runif(n=1000, min=2, max=6)
+data
+n = 100
+sample <- c()
+sample
+for (i in 1:n){
+sample[i] = mean(sample(data, 10, replace=TRUE))
+}
+mean(sample)
+sd(sample)
+mean(data)
+sample
+hist(sample, main='Tamaño de Muestra = 10')
+
+#Resolucíón
+N<- 11000000 #Tamaño del universo, edad de las personas de boliva
+x<-runif(N, 0,100) #Vector que simula la edad de las personas
+hist(x)
+#Si sacas muestras de tamaño n
+n<-10
+k<- 10000 #Usaremos 1000 muestras
+dmean<- NULL
+for(i in 1:k) {
+  dmean<-c(dmean,mean(sample(x,n,replace=T)))
+}
+mean(dmean) # esta muestra deberia ser igual a la de la poblacion, 
+mean(x)
+var(dmean)  #Varianza de x barra
+var(x)/n #sigma^2/n
+
+mx<-mean(x)
+vx<- var(x)
+
+#linea roja
+#Otra opción sería ver sus distribuciones
+hist(dmean)
+plot(density(dmean), main =n)    #Grafico de densidad de las 10000
+curve(dnorm(x,mx,sqrt(vx/n)), add=T, col="red", lwd=2 )#curva de la normal para la muestra
+
+#Si extraemos una muestra de esta población de tamaño x
+sample(x,n, replace=T) # Da lo mismo si usamos reposición ya que la muestra es muy grande
+choose(N,n) #N tomados de n
+format(choose(N,n) , scientific = F) #Numero sin resumir
 ```

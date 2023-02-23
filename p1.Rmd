@@ -23,5 +23,5 @@ output:
 
 # Formulas
 
-$$\lim x^2 \frac{1}{e^x} dx=\alpha$$
+$$\lim_rightarrow =\alpha$$
 Se sabe que $ A $ a pesar de todo $ \in $
